@@ -7,7 +7,30 @@
       //
       // TODO: Implement this function.
       //
-      const transformObject = () => {}
+      const transformStringOrNumber = (value) => {
+        return typeof value == 'number' ? value+6 : value + " BLARGH"
+      }
+
+      const transformObject = (input) => {
+        let val = input
+        for (let x  in input) {
+          let temp = input[x]
+          console.log(typeof temp)
+          if (typeof temp == 'number' || typeof temp == 'string') {
+            temp = transformStringOrNumber(temp)
+          } else if (typeof temp == 'object') {
+            for (let y in temp) {
+              let tempX = temp[y]
+              if (typeof tempX == 'number' || typeof tempX == 'string') {
+                tempX = transformStringOrNumber(tempX)
+              }
+              temp[y] = tempX 
+            }
+          }
+          val[x] = temp  
+        }
+        return val
+      }
     </script>
   </head>
 
