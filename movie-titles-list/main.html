@@ -7,7 +7,23 @@
       //
       // TODO: Implement this function.
       //
-      const getMovieList = () => {}
+      const userAction = async (year) => {
+        let val = typeof year != 'number' ? '' : year
+        const response = await fetch(`https://jsonmock.hackerrank.com/api/movies?Year=`+ val, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const myJson = await response.json(); 
+        return myJson
+      }
+      const getMovieList = async (year) => {
+        const data = await userAction(year);
+        console.log(data)
+        const values = data.data.map(e => e.Title).sort((a, b) => a.localeCompare(b))
+        return values
+      }
     </script>
   </head>
 
