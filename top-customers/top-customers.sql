@@ -12,3 +12,5 @@ GROUP BY
     customer_id
 
 -- It not a perfect answer, but i try my best    
+
+-- test "Good Binary Strings - Intermediate Problem Solving" i don't no how to work
