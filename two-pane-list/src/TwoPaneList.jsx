@@ -1,23 +1,46 @@
+import React, { useState } from "react";
+import {
+  Container,
+  Notification,
+  Menu,
+} from "react-bulma-components";
 export const TwoPaneList = ({ data }) => {
+  const [showIndex, setShow] = useState(null);
+  const [hover, setHover] = useState({hover: false, index: null});
   return (
-    // this is a first time i'm used bulma :(
-    // i spend too much time to di test 5, but not good and wrong. i miss to dislay content  
-    <div className="columns">
-      <aside class="menu">
-        <ul class="menu-list">
-          {data.map((e, i) => (
-            <li key={i} >
-                  <a class="is-active">{e.title}</a>
-                  <ul>
+    <Container>
+      <Notification color="primary">
+        Two-Pane List with Detail - Basic React
+      </Notification>
+      <Menu>
+        <Menu.List title="Two-Pane List">
+          {data.map((e, i) => {
+            return (
+              <div key={i}>
+                <Menu.List.Item
+                  onMouseOver={() =>setHover({hover: true, index: i})}
+                  onMouseOut={() => setHover({hover: false, index: null})}
+                  active={showIndex === i}
+                  onClick={() => {
+                    setShow(showIndex === i ? null : i);
+                  }}
+                >
+                  {hover.hover && hover.index === i ? "Plesea click to me!!!" : e.title}
+                </Menu.List.Item>
+                {showIndex === i ? (
+                  <Menu.List>
                     {e.content.map((val, index) => (
-                      <li key={index}>{val}</li>
+                      <div key={index}>
+                        <blockquote>{val}</blockquote>
+                      </div>
                     ))}
-                  </ul>
-              
-            </li>
-          ))}
-        </ul>
-      </aside>
-    </div>
+                  </Menu.List>
+                ) : null}
+              </div>
+            );
+          })}
+        </Menu.List>
+      </Menu>
+    </Container>
   );
 };
